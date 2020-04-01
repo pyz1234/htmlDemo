@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图片懒加载</title>
+		<style >
+			.img-list{
+				display: flex;
+				/*flex-direction: column;*/
+			}
+			.lazy-img{
+				width: 400px;
+				height: 600px;
+			}
+			
+		</style>
+		<script>
+			//onload 是等所有的资源文件加载完后在绑定时间
+			window.onload = function(){
+				//获取图片列表
+				var imgs = document.querySelectorAll("img");
+				var length = 0; //这个用来控制已加载过的图片移出这个长度
+				//获取到浏览器顶部的距离
+				function getTop(e){
+					return e.offsetTop;
+				}
+				
+				//懒加载实现
+				function lazyload(imgs){
+					//可视区域高度
+					var h = window.innerHeight;
+					//滚动区域高度
+					var s = document.documentElement.scrollTop || document.body.scrollTop;
+					
+					for(var i = length; i < imgs.length; i++){
+						//滚动区域和可视区域之和大于图片距离顶部的距离时，加载图片
+						if((h+s)>getTop(imgs[i])){
+							console.log("执行一次");
+							//真实情况是页面开始有2秒空白，所以使用setTimeout定时2s
+							(function(j){
+								if(imgs[j].src.indexOf("loading.gif")>0){
+									imgs[j].src = imgs[j].getAttribute("data-src");
+									console.log(imgs[j]);
+									length++; //图片加载一次，就要长度就缩短，下次再读的时候略过这个
+								}
+								/*setTimeout(function(){
+									// 不加立即执行函数i会等于9
+									// 隐形加载图片或其他资源，
+									//创建一个临时图片，这个图片在内存中不会到页面上去。实现隐形加载
+									var temp = new Image();
+									temp.src = imgs[j].getAttribute("data-src");
+									// onload判断图片加载完毕，真实图片加载完毕，再赋值给dom节点
+									temp.onload = function(){
+										//将data-src里面真实图片的地址赋值给这张图片的地址，替换loading图标
+										//判断没加载才进行加载
+										if(imgs[j].src.indexOf("loading.gif")>0){
+											imgs[j].src = imgs[j].getAttribute("data-src");
+											console.log(imgs[j]);
+											length++; //图片加载一次，就要长度就缩短，下次再读的时候略过这个
+										}
+									}
+								}, 1000)*/
+							})(i)
+						}
+					}
+				}
+				
+				lazyload(imgs);
+				
+				//滚屏函数
+				window.onscroll = function(){
+					lazyload(imgs);
+				}
+			};
+			
+		</script>
+	</head>
+	<body>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/1.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/2.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/3.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/4.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/1.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/2.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/3.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/4.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/1.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/2.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/3.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/4.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/1.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/2.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/3.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/4.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/1.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/2.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/3.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/4.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/1.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/2.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/3.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/4.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/1.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/2.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/3.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/4.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/1.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/2.jpg" />
+		</div>
+		<div class="img-list">
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/3.jpg" />
+			<img class="lazy-img" src="../img/loading.gif" data-src="../img/4.jpg" />
+		</div>
+	</body>
+</html>
