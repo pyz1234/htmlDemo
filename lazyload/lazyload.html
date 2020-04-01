@@ -15,7 +15,7 @@
 			
 		</style>
 		<script>
-			//onload 是等所有的资源文件加载完后在绑定时间
+			//onload 是等所有的资源文件加载完后在绑定事件
 			window.onload = function(){
 				//获取图片列表
 				var imgs = document.querySelectorAll("img");
@@ -41,7 +41,7 @@
 								if(imgs[j].src.indexOf("loading.gif")>0){
 									imgs[j].src = imgs[j].getAttribute("data-src");
 									console.log(imgs[j]);
-									length++; //图片加载一次，就要长度就缩短，下次再读的时候略过这个
+									length++; //图片加载一次，就要长度就缩短，下次再读的时候略过这个。（减少不必要的循环次数）
 								}
 								/*setTimeout(function(){
 									// 不加立即执行函数i会等于9
